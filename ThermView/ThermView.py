@@ -2,6 +2,8 @@
 Created on 28Jun.,2018
 
 @author: dels
+
+Updated to handle non-integer Payload.
 '''
 
 from PyQt5.QtWidgets import QWidget
@@ -39,7 +41,10 @@ class ThermView(QWidget):
         self.show()       # this trigger 'paintEvent()'
 
     def processMsg(self, index, payload):
-        value = int(payload)
+        try:
+            value = int(payload)
+        except ValueError:
+            value = 0
         if index == 0:
             self.lcel = value
         if index == 1:
